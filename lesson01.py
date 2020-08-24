@@ -124,21 +124,38 @@ def quickSort(numList):
     numList[highPoint] = numList[lowPoint]
   return quickSort(numList[:lowPoint]) + [tempNum] + quickSort(numList[lowPoint + 1:])
 
+
 """
 7.堆排序，利用堆的性质来进行排序，大顶堆，小顶堆。
   构建堆的时候，有一个说明，在数组中，父节点的编号的二倍，是左子节点，二倍加一，是右子节点。
   此算法中，最难的地方就是堆调整。
 """
 
-#调整堆
-def adjustHeap(arr):
-  #数组中，最后一个父节点的索引值。
-  index = int(len(arr)/2)-1
-  leftIndex = (index+1)*2 -1
-  rightIndex = (index+1)*2
-  print(index,leftIndex,rightIndex)
+
+# 调整堆
+def adjustHeap(arr, i):
+  leftIndex = i * 2
+  rightIndex = i * 2 + 1
+  if rightIndex < len(arr) and arr[i] < arr[rightIndex]:
+    arr[i], arr[rightIndex] = arr[rightIndex], arr[i]
+  if arr[i] < arr[leftIndex]:
+    arr[i], arr[leftIndex] = arr[leftIndex], arr[i]
+
+
+def heapSort(numList):
+  numList.insert(0, '#')
+  tempList = []
+  while len(numList) > 2:
+    midIndex = int((len(numList) - 1) / 2)
+    for i in range(midIndex):
+      adjustHeap(numList, midIndex - i)
+    numList[1], numList[-1] = numList[-1], numList[1]
+    tempList.append(numList.pop())
+  tempList.append(numList.pop())
+  return tempList
 
 
 if __name__ == '__main__':
   testNumList = [2, 6, 3, 9, 4, 5, 1, 0]
-  res = adjustHeap(testNumList)
+  res = heapSort(testNumList)
+  print(res)
