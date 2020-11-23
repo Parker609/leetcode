@@ -164,7 +164,6 @@ def bstSearch(numList, targetNum):
 # 果然，B树的构建是十分复杂的，在网上找到的代码，仿写一遍吧，看看效果，写一个简单的B树，里边只存放数字。
 class Entity(object):
   '''数据实体，假设这是一种数据存储的结构'''
-
   def __init__(self, key, value):
     self.key = key
     self.value = value
